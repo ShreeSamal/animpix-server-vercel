@@ -1,6 +1,12 @@
+import * as url from 'url';
 import express from 'express';
-
+import path from 'path';
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const app = express();
+
+app.use(cors({ origin: "*", credentials: true }));
+
+
 import cors from 'cors';
 
 //Importing all functions & utils
@@ -18,14 +24,13 @@ import {
     fetchGogoanimeEpisodeSource
 } from './scraper/scrape.js';
 
-app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json())
-
+app.use('/static', express.static(path.join(__dirname, './public/static')));
 
 // Routes
-app.get('/', (req, res) => {
-    res.send('Welcome to AnimeAPI!')
-});
+// app.get('/', (req, res) => {
+//     res.send('Welcome to AnimeAPI!')
+// });
 
 app.get('/gogoanime/search', async (req, res) => {
     const keyw = req.query.keyw;
@@ -114,6 +119,10 @@ app.get('/gogoanime/watch/:episodeId', async (req, res) => {
     const data = await fetchGogoanimeEpisodeSource({ episodeId });
     res.json(data).status(200)
 });
+
+app.get('*', function(req, res) {
+    res.sendFile('index.html', {root: path.join(__dirname, './public')});
+  });
 
 //Start the web-server
 const PORT = process.env.PORT || 3001;
