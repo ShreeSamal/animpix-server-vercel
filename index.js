@@ -64,8 +64,9 @@ app.get('/popular', async (req, res) => {
 });
 
 app.get('/animix/all', async (req, res) => {
+    const limit = req.query.limit;
     const data = await fetchAnimixAllAnime({});
-    res.json(data).status(200)
+    res.json(data.slice(0,limit)).status(200)
 });
 
 app.get('/genre/:genre', async (req, res) => {
