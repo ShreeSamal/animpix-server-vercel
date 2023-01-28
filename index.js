@@ -57,10 +57,9 @@ app.get('/gogoanime/recent-episodes', async (req, res) => {
 
 
 app.get('/popular', async (req, res) => {
-    const type = req.query.type;
     const limit = req.query.limit;
     const start = req.query.start;
-    const data = await fetchPopular({ type });
+    const data = await fetchPopular({});
     if(start && limit){
         res.json(data.slice(start,limit)).status(200);
     }
