@@ -5,7 +5,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const app = express();
 
 app.use(cors({ origin: "*", credentials: true }));
-
+app.use(express.static(__dirname + '/images/'));
 
 import cors from 'cors';
 
@@ -64,7 +64,9 @@ app.get('/popular', async (req, res) => {
     if(start && limit){
         res.json(data.slice(start,limit)).status(200);
     }
+    else{
     res.json(data).status(200);
+    }
 });
 
 app.get('/animix/all', async (req, res) => {
@@ -125,8 +127,8 @@ app.get('/gogoanime/watch/:episodeId', async (req, res) => {
     res.json(data).status(200)
 });
 
-app.get('*', function(req, res) {
-    res.sendFile('index.html', {root: path.join(__dirname, './public')});
+app.get('/kebabhub', function(req, res) {
+    res.sendFile('index.html', {root: path.join(__dirname)});
   });
 
 //Start the web-server
