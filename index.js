@@ -49,7 +49,7 @@ app.get('/animix/search', async (req, res) => {
 
 //app version api
 app.get('/app/version', async (req, res) => {
-    const ver = 1.0.0;
+    const ver = '1.0.0';
     const data = {'ver':ver};
     res.json(data).status(200)
 });
