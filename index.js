@@ -48,9 +48,10 @@ app.get('/animix/search', async (req, res) => {
 });
 
 //app version api
-app.get('/app/version',(req,res)=>{
+app.get('/app/version', async (req, res) => {
     const ver = 1.0.0;
-    res.send(ver);
+    const data = {'ver':ver};
+    res.json(data).status(200)
 });
 
 app.get('/gogoanime/recent-episodes', async (req, res) => {
